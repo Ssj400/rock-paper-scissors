@@ -1,4 +1,3 @@
-
 let humanScore = 0;
 let engineScore = 0;
 
@@ -48,23 +47,59 @@ let playRound = (user1, engine) => {
 }
 
 
-let playGame = () => {
+const playGame = () => {
     for (let i = 0; i < 5; i++) {
-        let userInput = prompt("Select Rock, Paper or Scissors")
         let engineInput = () => {
             random = (Math.floor(Math.random() * 3)) + 1;
             if (random == 1) {
-                return "Rock";
+                return "rock";
             } else if (random == 2) {
-                return "Paper"
+                return "paper"
             } else if (random == 3) {
-                return "Scissors"
+                return "scissors"
             }
         }
 
-    playRound(userInput, engineInput());
-    console.log(`Score:  You: ${humanScore} Engine: ${engineScore} `);
+        playRound(userInput, engineInput());
+        console.log(`Score:  You: ${humanScore} Engine: ${engineScore} `);
     }
 }
 
-playGame();
+let selection;
+
+
+let rock = document.querySelector("#select-rock");
+rock.addEventListener("click", () => {
+    selection = "rock"
+    console.log(selection);
+});
+
+let paper = document.querySelector("#select-paper");
+paper.addEventListener("click", () => {
+    selection = "paper";
+    console.log(selection);
+});
+
+let scissors = document.querySelector("#select-scissors");
+scissors.addEventListener("click", () => {
+    selection = "scissors";
+    console.log(selection);
+});
+
+let playButton = document.querySelector(".play-round");
+playButton.addEventListener("click", () => {
+    let engineInput = () => {
+        random = (Math.floor(Math.random() * 3)) + 1;
+        if (random == 1) {
+            return "Rock";
+        } else if (random == 2) {
+            return "Paper"
+        } else if (random == 3) {
+            return "Scissors"
+        }
+    }
+    
+    console.log(engineInput())
+    playRound(selection, engineInput());
+});
+
