@@ -1,48 +1,49 @@
 let humanScore = 0;
 let engineScore = 0;
+let scorePoints = document.querySelector(".score");
 
-let playRound = (user1, engine) => {
-    console.log("--------------------------------------------------");
+const playRound = (user1, engine) => {
+    let resultText = document.querySelector(".result")
     if (user1 == null || user1 == "") {
-        console.log("Game cancelled");
+        resultText.textContent = "Game cancelled";
         return null;
     }
     let user = user1.toLowerCase();
     if (user === "rock" && engine === "Rock") {
-        console.log("User: Rock, Engine: Rock, Result: Tie");
+        resultText.textContent = "User: Rock, Engine: Rock, Result: Tie";
 
     } else if (user === "paper" && engine === "Paper") {
-        console.log("User: Paper, Engine: Paper, Result: Tie");
+        resultText.textContent = "User: Paper, Engine: Paper, Result: Tie";
 
     } else if (user === "scissors" && engine === "Scissors") {
-        console.log("User: Scissors, Engine: Scissors, Result: Tie");
+        resultText.textContent = "User: Scissors, Engine: Scissors, Result: Tie";
 
     } else if (user === "rock" && engine === "Scissors") {
         humanScore++;
-        console.log("User: Rock, Engine: Scissors, Result: You win!");
+        resultText.textContent = "User: Rock, Engine: Scissors, Result: You win!";
 
     } else if (user === "rock" && engine === "Paper") {
         engineScore++;
-        console.log("User: Rock, Engine: Paper, Result: Engine wins!");
+        resultText.textContent = "User: Rock, Engine: Paper, Result: Engine wins!";
 
     } else if (user === "paper" && engine === "Scissors") {
         engineScore++;
-        console.log("User: Paper, Engine: Scissors, Result: Engine wins!");
+        resultText.textContent = "User: Paper, Engine: Scissors, Result: Engine wins!";
 
     } else if (user === "scissors" && engine === "Rock") {
         engineScore++;
-        console.log("User: Scissors, Engine: Rock, Result: Engine wins!");
+        resultText.textContent = "User: Scissors, Engine: Rock, Result: Engine wins!";
 
     } else if (user === "paper" && engine === "Rock") {
         humanScore++;
-        console.log("User: Paper, Engine: Rock, Result: You win!");
+        resultText.textContent = "User: Paper, Engine: Rock, Result: You win!";
 
     } else if (user === "scissors" && engine === "Paper") {
         humanScore++;
-        console.log("User: Scissors, Engine: Paper, Result: You win!");
+        resultText.textContent = "User: Scissors, Engine: Paper, Result: You win!";
 
     } else {
-        console.log("Please write Rock, Paper or Scissors");
+        resultText.textContent = "Please select Rock, Paper or Scissors";
     }
 }
 
@@ -66,28 +67,36 @@ const playGame = () => {
 }
 
 let selection;
-
+let selectionText = document.querySelector(".stext");
 
 let rock = document.querySelector("#select-rock");
 rock.addEventListener("click", () => {
     selection = "rock"
     console.log(selection);
+    selectionText.textContent = `You selected: Rock`
 });
 
 let paper = document.querySelector("#select-paper");
 paper.addEventListener("click", () => {
     selection = "paper";
     console.log(selection);
+    selectionText.textContent = `You selected: Paper`
 });
 
 let scissors = document.querySelector("#select-scissors");
 scissors.addEventListener("click", () => {
     selection = "scissors";
     console.log(selection);
+    selectionText.textContent = `You selected: Scissors`
 });
 
 let playButton = document.querySelector(".play-round");
 playButton.addEventListener("click", () => {
+
+    let result;
+    result = document.querySelector("h1");
+    result.textContent = "";
+
     let engineInput = () => {
         random = (Math.floor(Math.random() * 3)) + 1;
         if (random == 1) {
@@ -98,8 +107,25 @@ playButton.addEventListener("click", () => {
             return "Scissors"
         }
     }
-    
+
     console.log(engineInput())
     playRound(selection, engineInput());
+    scorePoints.textContent = ` You: ${humanScore} Engine: ${engineScore} `;
+
+    selection = undefined;
+    selectionText.textContent = "You selected:";
+
+    if (humanScore === 5) {
+        result.textContent = "YOU WIN"
+        humanScore = 0;
+        engineScore = 0;
+    } else if (engineScore === 5) {
+        result.textContent = "YOU LOSE"
+        humanScore = 0;
+        engineScore = 0;
+    }
 });
+
+
+
 
